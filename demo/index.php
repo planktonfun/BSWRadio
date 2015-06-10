@@ -17,8 +17,7 @@
         $f = new FolderCrawler;
 
         $playlist = array_merge( 
-            $f->crawl( 'mix2', 'mp3' ), 
-            $f->crawl( 'mix2\Jap\HS music', 'mp3' ) 
+            $f->crawl( 'mix', 'mp3' )
         );
 
     ?>
@@ -116,7 +115,8 @@
         function send( text ) {
             log( 'You:' + text );
 
-            Server.send( 'message', text );            
+            Server.send( 'message', text );
+            $.post('send.php',{ message: text });            
         }
 
         function log( text ) {

@@ -16,7 +16,7 @@
 
         $f = new FolderCrawler;
 
-        $playlist = array_merge( 
+        $playlist = array_merge(             
             $f->crawl( 'mix2', 'mp3' ), 
             $f->crawl( 'mix2/Jap/HS music', 'mp3' ),
             $f->crawl( 'mix2/2014', 'mp3' ),
@@ -119,7 +119,8 @@
         function send( text ) {
             log( 'You:' + text );
 
-            Server.send( 'message', text );            
+            // Server.send( 'message', text );
+            $.post('send.php',{ message: text });              
         }
 
         function log( text ) {
@@ -139,6 +140,22 @@
 
         WaitforClass();
 
+    </script>
+    <script src="//js.pusher.com/2.2/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.log = function(message) {
+          if (window.console && window.console.log) {
+            window.console.log(message);
+          }
+        };
+
+        var pusher = new Pusher('c7074daf2062830b98d0');
+        var channel = pusher.subscribe('test_channel');
+        channel.bind('my_event', function(data) {          
+          var payload = data.message;
+          change_song( payload );
+        });
     </script>
 </head>
 <body>
