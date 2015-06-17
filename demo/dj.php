@@ -9,6 +9,8 @@
     <script type="text/javascript" src="../plugin/jquery-jplayer/jquery.jplayer.js"></script>
     <script type="text/javascript" src="../plugin/ttw-music-player-min.js"></script>    
     <script src="./assets/js/fancywebsocket.js"></script>
+    <script src="./assets/js/simplewebrtc.bundle.js"></script>
+    <script src="./assets/js/webrtc_server.js"></script>
 
     <?php 
         include "FolderCrawler.php";
@@ -17,11 +19,7 @@
         $f = new FolderCrawler;
 
         $playlist = array_merge(             
-            $f->crawl( 'mix2', 'mp3' ), 
-            $f->crawl( 'mix2/Jap/HS music', 'mp3' ),
-            $f->crawl( 'mix2/2014', 'mp3' ),
-            $f->crawl( 'mix2/BSW-RADIO', 'mp3' ),
-            $f->crawl( 'mix2/Billboard 2015 Top 100 Singles (June)', 'mp3' )
+            $f->crawl( 'mix', 'mp3')
         );
 
     ?>
@@ -93,7 +91,7 @@
         $(document).ready(function() {
             log('Connecting...');
 
-            Server = new FancyWebSocket('ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9301');
+            Server = new FancyWebSocket('ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9300');
 
             //Let the user know we're connected
             Server.bind('open', function() {
@@ -110,7 +108,7 @@
                 log( payload );
 
                 change_song( payload );
-
+                test_result();
             });
 
             Server.connect();
@@ -155,7 +153,30 @@
         channel.bind('my_event', function(data) {                    
           var payload = data.message;
           change_song( payload );
+          test_result();
         });
+
+        var time = 0;
+
+        function test() {
+        	time = timeStamp();
+        	$.post('send.php',{ message: 'a' });
+        	// Server.send( 'message', 'a' ); 
+        }
+        
+        function test_result() {
+        	console.log(time - timeStamp());
+        }
+
+        function timeStamp() {
+			if (!Date.now) {
+			    Date.now = function() { 
+			    	return new Date().getTime(); 
+			    };
+			}
+
+			return Date.now();
+		}	
     </script>
 </head>
 <body>

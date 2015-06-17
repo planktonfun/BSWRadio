@@ -9,6 +9,8 @@
     <script type="text/javascript" src="../plugin/jquery-jplayer/jquery.jplayer.js"></script>
     <script type="text/javascript" src="../plugin/ttw-music-player-min.js"></script>    
     <script src="./assets/js/fancywebsocket.js"></script>
+    <script src="./assets/js/simplewebrtc.bundle.js"></script>
+    <script src="./assets/js/client.js"></script>
 
     <?php 
         include "FolderCrawler.php";
@@ -17,11 +19,7 @@
         $f = new FolderCrawler;
 
         $playlist = array_merge(             
-            $f->crawl( 'mix2', 'mp3' ), 
-            $f->crawl( 'mix2/Jap/HS music', 'mp3' ),
-            $f->crawl( 'mix2/2014', 'mp3' ),
-            $f->crawl( 'mix2/BSW-RADIO', 'mp3' ),
-            $f->crawl( 'mix2/Billboard 2015 Top 100 Singles (June)', 'mp3' )
+            $f->crawl( 'mix', 'mp3' )
         );
 
     ?>
