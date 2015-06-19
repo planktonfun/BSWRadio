@@ -43,3 +43,24 @@ body {
 #download:hover{
     color:#fff;
 }
+
+.btbtn {
+    text-decoration:none;
+    font-size:12px;
+    font-family:arial, sans-serif;    
+    width: 150px;
+    color:#999;
+    position: fixed;
+    top: 0px;
+}
+
+.btbtn2 {
+    text-decoration:none;
+    font-size:12px;
+    font-family:arial, sans-serif;    
+    width: 150px;
+    color:#999;
+    position: fixed;
+    top: 0px;
+    left: 46px;
+}

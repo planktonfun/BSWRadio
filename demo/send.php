@@ -10,8 +10,10 @@ $pusher = new Pusher($app_key, $app_secret, $app_id);
 
 if(isset($_POST['message'])) {
 	$data['message'] = $_POST['message'];
+	$data['localip'] = $_POST['localip'];
 } else {
 	$data['message'] = 'hello world';
+	$data['localip'] = 'n/a';
 }
 
 $pusher->trigger('test_channel', 'my_event', $data);

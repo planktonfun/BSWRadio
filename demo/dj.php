@@ -182,5 +182,18 @@
 <body>
 
 <div id="title">BSW Web Radio</div>
+<a href="#" class="btbtn">Disable Mic</a>
+<a href="#" class="btbtn2">Enable Mic</a>
+<script>
+
+    $('.btbtn').click(function(){
+        webrtc.joinRoom( Math.round(Math.random()*9999) );
+    });
+
+    $('.btbtn2').click(function(){
+        webrtc.joinRoom( 'auto1' );
+    });
+
+</script>
 </body>
 </html>

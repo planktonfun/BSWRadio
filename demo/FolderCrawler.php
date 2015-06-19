@@ -2,9 +2,50 @@
 
 
 class FolderCrawler 
-{
+{	
+	private $_cache = true;
+    private $_cache_file = 'data.cache';
+    private $_cache_interval = 'YMDH';
+
+    public function __construct( ) {
+        
+        if( $this->_cache == true && !file_exists( $this->_cache_file ) ) {
+            file_put_contents( $this->_cache_file, json_encode(array('created' => 'now' )));
+        }
+
+    }
+
+    private function getCache( $key ) {
+        
+        $file = file_get_contents( $this->_cache_file );
+        $list = json_decode( $file, true );
+
+        return ( isset( $list[$key] ) ) ? $list[$key] : false;
+    }
+
+    private function updateCache( $key, $array ) {
+        
+        $file = file_get_contents( $this->_cache_file );
+        $list = json_decode( $file, true );
+
+        if( !$this->getCache( $key ) ) {
+            $list[ $key ] = $array;
+        }
+
+        file_put_contents( $this->_cache_file, json_encode( $list ));
+    }
+
 	public function crawl( $_folder_name, $_type ) {
 		
+        if( $this->_cache == true ) {
+            
+            $cache = $this->getCache( date( $this->_cache_interval ) . strip_tags( addslashes( $_folder_name ) ) );
+
+            if( $cache != false ) {                    
+                return $cache;
+            }
+        }
+
 		$files = scandir($_folder_name);
 
 		if( !scandir($_folder_name) ) {
@@ -24,14 +65,25 @@ class FolderCrawler
 				$mp3 = new CMP3File;
 				$mp3->getid3( $path );
 
-				if( trim( strip_tags( $mp3->title ) ) != "" )
-					$files_added[] = array(
-						"mp3"    => $path,
-						"title"  => strip_tags( addslashes( $mp3->title ) ),
-						"artist" => strip_tags( addslashes( $mp3->artist ) )
-					);
+				if( trim( strip_tags( $mp3->title ) ) != "" ) {
+                    $files_added[] = array(
+                        "mp3"    => $path,
+                        "title"  => strip_tags( addslashes( $mp3->title ) ),
+                        "artist" => strip_tags( addslashes( $mp3->artist ) )
+                    );
+                } else {
+                    $files_added[] = array(
+                        "mp3"    => $path,
+                        "title"  => strip_tags( addslashes( $value ) ),
+                        "artist" => 'Mr. Pogi'
+                    );
+                }
 			}
 		}
+
+        if( $this->_cache == true ) {
+            $this->updateCache( date( $this->_cache_interval ) . strip_tags( addslashes( $_folder_name ) ), $files_added );
+        }
 
 		return $files_added;
 	}

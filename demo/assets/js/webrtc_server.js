@@ -19,13 +19,13 @@
                 media: mediaOptions
             });
 
-            webrtc.joinRoom('auto');
+            webrtc.joinRoom('auto1');
 
             // when it's ready, join if we got a room from the URL
             webrtc.on('readyToCall', function () {
                 // you can name it anything
                 // if (room) webrtc.joinRoom(room);
-                webrtc.joinRoom('auto');
+                webrtc.joinRoom('auto1');
             });
 
             function showVolume(el, volume) {
