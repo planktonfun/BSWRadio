@@ -12,13 +12,15 @@
     <script type="text/javascript" src="./assets/js/fancywebsocket.js"></script>
     <script type="text/javascript" src="./assets/js/webrtc.js"></script>
 
+    <?php require_once "./assets/php/config.php"; ?>
     <?php require_once "./assets/php/songList.php"; ?>
 
     <script type="text/javascript">
 
         // Configs
         var server_name = 'ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9301';
-        var pusher_config = { key: 'c7074daf2062830b98d0',  channel: 'test_channel' };
+        var pusher_config = { key: '<?= $app_key ?>',  channel: '<?= $app_channel ?>' };
+        var dj_ip = '<?= $dj_ip; ?>';
         var myPlaylist = [];
 
         <?php 

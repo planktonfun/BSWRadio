@@ -88,7 +88,8 @@
 
           console.log( payload + 'from' + data.localip );
           
-          change_song( payload );
+          if( data.localip.indexOf(dj_ip) != -1 ) 
+            change_song( payload );
           
           if(payload=='refresh_this_123') {
             location.href = location.href;
