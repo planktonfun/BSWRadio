@@ -14,5 +14,5 @@ if(isset($_POST['message'])) {
 }
 
 if ( strpos( $data['localip'], $dj_ip ) !== false ) {    
-	$pusher->trigger('test_channel', 'my_event', $data);
+	$pusher->trigger($app_channel, 'my_event', $data);
 }
