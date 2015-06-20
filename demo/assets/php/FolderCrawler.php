@@ -69,6 +69,7 @@ class FolderCrawler
 		foreach ($files as $key => $value ) {
 
 			$path = $_folder_name . '/' . $value;
+            $png = $_folder_name . '/' . basename( $value, ".mp3" ) . ".png";
 
 			$info = new SplFileInfo( $path );
 
@@ -81,13 +82,15 @@ class FolderCrawler
                     $files_added[] = array(
                         "mp3"    => $path,
                         "title"  => strip_tags( addslashes( $mp3->title ) ),
-                        "artist" => strip_tags( addslashes( $mp3->artist ) )
+                        "artist" => strip_tags( addslashes( $mp3->artist ) ),
+                        "png"    => (file_exists( $png )) ? $png : ""
                     );
                 } else {
                     $files_added[] = array(
                         "mp3"    => $path,
                         "title"  => strip_tags( addslashes( $value ) ),
-                        "artist" => 'Mr. Pogi'
+                        "artist" => 'Mr. Pogi',
+                        "png"    => (file_exists( $png )) ? $png : ""
                     );
                 }
 			}

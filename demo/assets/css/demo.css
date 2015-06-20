@@ -5,6 +5,14 @@ body {
     background: #444 url(../images/bg.jpg) repeat 0 0 scroll;
 }
 
+.unselectable {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 #title{
     color:#999;
     font-size: 32px;
@@ -31,22 +39,11 @@ body {
 }
 
 .btbtn {
-    text-decoration:none;
-    font-size:12px;
-    font-family:arial, sans-serif;    
-    width: 150px;
-    color:#999;
-    position: fixed;
-    top: 0px;
+    margin-left: 13px;
+    cursor: pointer;
+    cursor: hand;
 }
 
-.btbtn2 {
-    text-decoration:none;
-    font-size:12px;
-    font-family:arial, sans-serif;    
-    width: 150px;
-    color:#999;
-    position: fixed;
-    top: 0px;
-    left: 46px;
+.text-grey {
+    color: grey;
 }

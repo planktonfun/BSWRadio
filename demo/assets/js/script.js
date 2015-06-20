@@ -1,6 +1,6 @@
         
         $(document).ready(function(){
-            var description = 'Browse it, Rate it, Play it, Buy it.';
+            var description = 'Browse it, Rate it, Play it, Buy it. <i class="unselectable btbtn fa fa-2x fa-volume-up text-grey"></i>';
 
             $('body').ttwMusicPlayer(myPlaylist, {
                 currencySymbol:'P',
@@ -96,20 +96,41 @@
         });
 
         $(document).ready(function() {
-
-            $('.btbtn').click(function(){
-                $('audio,video').each(function(){
-                  $(this).context.volume = 0;
-                });
+            $(document).on('click','.btbtn',function(){
+                toggleMute( this );
             });
-
-            $('.btbtn2').click(function(){
-                $('audio,video').each(function(){
-                  $(this).context.volume = 1.0;
-                });
-            });
-
         });
+
+        function getVolume( ) {
+            var vol = 0;
+
+            $('audio,video').each(function(){
+                vol = $(this).context.volume;
+            });
+
+            return vol;
+        }
+
+        function setVolume( vol ) {
+            $('audio,video').each(function(){
+                $(this).context.volume = vol;
+            });
+        }
+
+        function toggleMute( elem ) {
+
+            if( getVolume( ) == 0 ) {
+                $(elem).addClass('fa-volume-up');
+                $(elem).removeClass('fa-volume-off');
+
+                setVolume( 1 );
+            } else {                
+                $(elem).removeClass('fa-volume-up');
+                $(elem).addClass('fa-volume-off');
+
+                setVolume( 0 );
+            }
+        }
 
         // Live Server Track changes        
         $(document).on('click', '.track', function () {            
