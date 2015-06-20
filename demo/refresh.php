@@ -1,6 +1,6 @@
 <?php
 
-require('Pusher.php');
+require('./assets/php/Pusher.php');
 
 $app_id = '75978';
 $app_key = 'c7074daf2062830b98d0';

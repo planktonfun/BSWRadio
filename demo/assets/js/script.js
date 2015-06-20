@@ -1,55 +1,122 @@
-		
-// Game Script
-var rps_map = {
-		Rock: { weakness: 'Paper', strength: 'Scissor' },
-		Scissor: { weakness: 'Rock', strength: 'Paper' },
-		Paper: { weakness: 'Scissor', strength: 'Rock' }
-	};
+        
+        $(document).ready(function(){
+            var description = 'Browse it, Rate it, Play it, Buy it.';
 
-var outcome = false;
-var score_you = 0;
-var score_opponent = 0;
-var selected = false;
+            $('body').ttwMusicPlayer(myPlaylist, {
+                currencySymbol:'P',
+                buyText:'BUY',
+                tracksToShow:5,
+                autoPlay:false, 
+                description:description,
+                ratingCallback:function(index, playlistItem, rating){
+                    console.log(index, playlistItem, rating);
+                },
 
-$('button').click(function(){
+                jPlayer:{
+                    swfPath:'../plugin/jquery-jplayer' //You need to override the default swf path any time the directory structure changes
+                }
+            });
+        });
 
-	selected = $(this).text();
-	
-	send( selected );
+        var global = true;
 
-});
+        // Change Song BY Title
+        function change_song( _title_click ) {
+            
+            $('.track .title').each(function(){
+               var test =  $(this).text(); //console.log( test );
+               if( test == _title_click  ) {
+                    global = false;
+                    $(this).click();
+                    global = true;
+               }
+            });
 
-function think( ) {
+        }        
+        
+        // Live Server
+        var Server = null;
+        
+        $(document).ready(function() {
+            log('Connecting...');
 
-	if( !opponent_hand ){
-		log( 'Waiting for opponent hand' );
+            Server = new FancyWebSocket( server_name );
 
-		return; 
-	}
-	if( !selected ){
-		log( 'Waiting for your hand' );
+            //Let the user know we're connected
+            Server.bind('open', function() {
+                log( "Connected." );        
+            });
 
-		return;
-	}
+            //OH NOES! Disconnection occurred.
+            Server.bind('close', function( data ) {
+                log( "Disconnected." );
+            });
 
-	if( opponent_hand == selected ) outcome = 'Tie';
-	
-	if( rps_map[opponent_hand].strength == selected ) {
-		outcome = 'Lose';
-		score_opponent++;
-	}
+            //Log any messages sent from server
+            Server.bind('message', function( payload ) {
+                log( payload );
 
-	if( rps_map[selected].strength == opponent_hand ) {
-		outcome = 'Win';
-		score_you++;
-	}
+                change_song( payload );
 
-	$('#opponent').text( 'opponent: ' + opponent_hand + '\nyou: ' + selected + '\noutcome: ' + outcome );	
-	$('#score_you').text( score_you );	
-	$('#score_opponent').text( score_opponent );
+            });
 
-	// clear both hands
-	opponent_hand = false;
-	selected = false;
+            Server.connect();
+        });
 
-}
+        function send( text ) {
+            log( 'You:' + text );
+
+            // Server.send( 'message', text );
+            $.post('./assets/php/send.php',{ message: text, localip: localip });              
+        }
+
+        function log( text ) {
+            console.log( text );
+        }       
+
+        // Enable pusher logging - don't include this in production
+        Pusher.log = function(message) {
+          if (window.console && window.console.log) {
+            window.console.log(message);
+          }
+        };
+
+        var pusher = new Pusher( pusher_config.key );
+        var channel = pusher.subscribe( pusher_config.channel );
+        channel.bind('my_event', function(data) {                    
+          var payload = data.message;
+
+          console.log( payload + 'from' + data.localip );
+          
+          change_song( payload );
+          
+          if(payload=='refresh_this_123') {
+            location.href = location.href;
+          }
+        });
+
+        $(document).ready(function() {
+
+            $('.btbtn').click(function(){
+                $('audio,video').each(function(){
+                  $(this).context.volume = 0;
+                });
+            });
+
+            $('.btbtn2').click(function(){
+                $('audio,video').each(function(){
+                  $(this).context.volume = 1.0;
+                });
+            });
+
+        });
+
+        // Live Server Track changes        
+        $(document).on('click', '.track', function () {            
+
+            var sample = $(this).find( '.title' ).text();
+            
+            if( global )                
+                send( sample );
+
+        });

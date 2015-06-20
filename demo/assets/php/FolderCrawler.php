@@ -4,7 +4,7 @@
 class FolderCrawler 
 {	
 	private $_cache = true;
-    private $_cache_file = 'data.cache';
+    private $_cache_file = 'cache/data.cache';
     private $_cache_interval = 'YMDH';
 
     public function __construct( ) {
@@ -35,11 +35,23 @@ class FolderCrawler
         file_put_contents( $this->_cache_file, json_encode( $list ));
     }
 
+    public function file_count( $folder_name ) {
+        $files = scandir($folder_name);
+
+        if( !scandir($folder_name) ) {
+            die( 'Folder specified is unknown: ' . $folder_name );
+        }
+
+        return count( $files );
+    }
+
 	public function crawl( $_folder_name, $_type ) {
 		
+        $cache_index = date( $this->_cache_interval ) . strip_tags( addslashes( $_folder_name ) )  . $this->file_count( $_folder_name );
+
         if( $this->_cache == true ) {
             
-            $cache = $this->getCache( date( $this->_cache_interval ) . strip_tags( addslashes( $_folder_name ) ) );
+            $cache = $this->getCache( $cache_index );
 
             if( $cache != false ) {                    
                 return $cache;
@@ -82,7 +94,7 @@ class FolderCrawler
 		}
 
         if( $this->_cache == true ) {
-            $this->updateCache( date( $this->_cache_interval ) . strip_tags( addslashes( $_folder_name ) ), $files_added );
+            $this->updateCache( $cache_index, $files_added );
         }
 
 		return $files_added;
