@@ -1,6 +1,6 @@
 <?php
-require('./assets/php/config.php');
-require('./assets/php/Pusher.php');
+require_once('./assets/php/config.php');
+require_once('./assets/php/Pusher.php');
 
 $pusher = new Pusher($app_key, $app_secret, $app_id);
 

@@ -1,7 +1,7 @@
 <?php
 
-require('config.php');
-require('Pusher.php');
+require_once('config.php');
+require_once('Pusher.php');
 
 $pusher = new Pusher($app_key, $app_secret, $app_id);
 

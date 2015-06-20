@@ -1,7 +1,7 @@
 <?php
 
-	include "FolderCrawler.php";
-    include "CMP3File.php";
+	require_once "FolderCrawler.php";
+    require_once "CMP3File.php";
 
     $f = new FolderCrawler;
 

@@ -14,6 +14,7 @@
 
     <?php require_once "./assets/php/config.php"; ?>
     <?php require_once "./assets/php/songList.php"; ?>
+    <?php require_once "./assets/php/djupdate.php"; ?>
 
     <script type="text/javascript">
 
