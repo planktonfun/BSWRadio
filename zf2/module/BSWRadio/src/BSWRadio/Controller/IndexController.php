@@ -60,4 +60,13 @@ class IndexController extends AbstractActionController
 
     	return $this->response;
     }
+
+    public function lanAction() {
+    	return new ViewModel();
+    }
+
+    public function serverAction() {
+    	return new ViewModel();
+    }
+
 }
