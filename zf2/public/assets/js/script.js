@@ -53,10 +53,25 @@
             });
 
             //Log any messages sent from server
-            Server.bind('message', function( payload ) {
-                log( payload );
+            Server.bind('message', function( data ) {
 
-                change_song( payload );
+                var data = JSON.parse( data );
+                var payload = data.message;
+
+                if( typeof( data.updatedj ) === "undefined" ) data.updatedj = false;
+                if( typeof( data.localip ) === "undefined" )  data.localip  = 'wqeqwe';
+
+                console.log( payload + 'from' + data.localip );
+
+                if( data.updatedj != false )
+                    dj_ip = data.updatedj;
+
+                if( data.localip.indexOf(dj_ip) != -1 ) 
+                    change_song( payload );
+
+                if(payload=='refresh_this_123') {
+                    location.href = location.href;
+                }
 
             });
 
@@ -66,8 +81,8 @@
         function send( text ) {
             log( 'You:' + text );
 
-            // Server.send( 'message', text );
-            $.post('/ajax/send/',{ message: text, localip: localip });              
+            Server.send( 'message', JSON.stringify( { message: text, localip: localip } ) );
+            // $.post('/ajax/send/',{ message: text, localip: localip });              
         }
 
         function log( text ) {
