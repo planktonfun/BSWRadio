@@ -22,7 +22,8 @@ class IndexController extends AbstractActionController
 
     public function clientAction() {
     	$service = $this->getServiceLocator()->get('bsw_radio_service');
-    	$config = $service->getConfig();
+        $config = $service->getConfig();
+    	$dynamic_config = $service->getDynamicConfig();
 		$playlist = $service->getSongList();		
 
 		$view = new ViewModel();
@@ -31,6 +32,10 @@ class IndexController extends AbstractActionController
 			$view->setVariable($name, $value);
 		}
 
+        foreach ( $dynamic_config as $name => $value) {
+            $view->setVariable($name, $value);
+        }
+
 		$view->setVariable('playlist', $playlist);
 
         return $view;
@@ -38,7 +43,8 @@ class IndexController extends AbstractActionController
 
     public function deejayAction() {
     	$service = $this->getServiceLocator()->get('bsw_radio_service');
-    	$config = $service->getConfig();
+        $config = $service->getConfig();
+    	$dynamic_config = $service->getDynamicConfig();
 		$playlist = $service->getSongList();		
 
 		$view = new ViewModel();

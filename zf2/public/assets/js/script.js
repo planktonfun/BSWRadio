@@ -29,10 +29,29 @@
                     global = false;
                     $(this).click();
                     global = true;
+                    current_song = test;
                }
             });
 
-        }        
+        }
+
+        var toggle_title = false;
+
+        setInterval( function(){
+
+            toggle_title = !toggle_title;
+
+            if( toggle_title ) {
+                $('title').html('BSW Radio');
+            } else {
+                $('title').html(current_song);                
+            }
+
+        }, 1500);
+
+        function change_mod( _message ) {
+            $('.mod').html( _message );
+        }     
         
         // Live Server
         var Server = null;
@@ -82,7 +101,7 @@
             log( 'You:' + text );
 
             Server.send( 'message', JSON.stringify( { message: text, localip: localip } ) );
-            // $.post('/ajax/send/',{ message: text, localip: localip });              
+            $.post('/ajax/send/',{ message: text, localip: localip });              
         }
 
         function log( text ) {
@@ -102,15 +121,21 @@
           var payload = data.message;
 
           if( typeof( data.updatedj ) === "undefined" ) data.updatedj = false;
+          if( typeof( data.update_mod ) === "undefined" ) data.update_mod = false;
           if( typeof( data.localip ) === "undefined" )  data.localip  = 'wqeqwe';
 
           console.log( payload + 'from' + data.localip );
+          console.log( data );
           
           if( data.updatedj != false )
             dj_ip = data.updatedj;
 
-          if( data.localip.indexOf(dj_ip) != -1 ) 
+          if( data.localip.indexOf(dj_ip) != -1 ) {
             change_song( payload );
+            
+            if( data.update_mod != false )
+                change_mod( data.update_mod );
+          }
           
           if(payload=='refresh_this_123') {
             location.href = location.href;
@@ -120,6 +145,10 @@
         $(document).ready(function() {
             $(document).on('click','.btbtn',function(){
                 toggleMute( this );
+            });
+
+            $(document).on('click','#update_mod',function(){
+                $.post('/ajax/setMessage/',{ update_mod: $('.message').val(), localip: localip });
             });
         });
 

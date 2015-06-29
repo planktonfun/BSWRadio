@@ -6,7 +6,7 @@ class FolderCrawler
 {	
 	private $_cache = true;
     private $_cache_file = 'cache/data.cache';
-    private $_cache_interval = 'YMDH';
+    private $_cache_interval = 'YMD';
 
     public function __construct( ) {
         
