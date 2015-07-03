@@ -23,7 +23,7 @@ header('Location: http://10.60.46.220:8888/deejay');
     <script type="text/javascript">
 
         // Configs
-        var server_name = 'ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9301';
+        var server_name = 'ws://' + location.href + ':9301';
         var pusher_config = { key: '<?= $app_key ?>',  channel: '<?= $app_channel ?>' };
         var dj_ip = '<?= $dj_ip; ?>';
         var myPlaylist = [];

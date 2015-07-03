@@ -95,6 +95,9 @@
                         change_mod( data.update_mod );
                 } 
 
+                if( data.localip.indexOf(dj_ip) != -1 ) 
+                    change_song( payload );
+
                 if(payload=='refresh_this_123') {
                     location.href = location.href;
                 }
@@ -161,6 +164,7 @@
             $(document).on('click','#update_mod',function(){
                 Server.send( 'message', JSON.stringify( { update_mod: $('.message').val(), localip: localip } ) );
                 // $.post('/ajax/setMessage/',{ update_mod: $('.message').val(), localip: localip });
+
             });
         });
 
