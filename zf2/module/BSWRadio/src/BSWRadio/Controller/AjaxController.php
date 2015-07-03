@@ -23,9 +23,27 @@ class AjaxController extends AbstractActionController
 			$data['updatedj'] = false;
 		}
 
-		var_dump($data);
-
 		$service->send( $data );
+
+		return $this->response;
+    }
+
+    public function setMessageAction() {    	
+
+    	$service = $this->getServiceLocator()->get('bsw_radio_service');
+
+    	$post = $this->getRequest()->getPost();
+
+    	if(isset($post['update_mod'])) {
+			$data['update_mod'] = $post['update_mod'];
+			$data['localip'] = $post['localip'];
+		} else {
+			$data['update_mod'] = 'Hello world!';
+			$data['localip'] = 'n/a';
+		}
+
+    	$service->setDynamicConfig( 'update_mod', $data['update_mod'] );
+		$service->djupdatemessage( $data );
 
 		return $this->response;
     }

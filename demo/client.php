@@ -1,3 +1,7 @@
+<?php
+header('Location: http://10.60.46.220:8888/client');
+?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>

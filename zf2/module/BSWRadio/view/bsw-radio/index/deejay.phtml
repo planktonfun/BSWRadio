@@ -15,9 +15,11 @@
     <script type="text/javascript">
 
         // Configs
-        var server_name = 'ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9301';
+        var server_name = 'ws://' + location.hostname + ':9301';
         var pusher_config = { key: '<?= $app_key ?>',  channel: '<?= $app_channel ?>' };
         var dj_ip = '<?= $dj_ip; ?>';
+        var current_song = '<?= $current_song; ?>';
+        var message_of_the_day = '<?= $message_of_the_day; ?>';
         var myPlaylist = [];
 
         <?php 
@@ -48,8 +50,16 @@
     <script src="//js.pusher.com/2.2/pusher.min.js"></script>   
 </head>
 <body>
-
     <div id="title">BSW Web Radio</div>
+    <div id="message_of_the_day">
+        <label class="text-grey pull-left full-width">Set DJ message:</label>
+        <textarea class="message pull-left full-width" rows="3"></textarea>
+        <button id="update_mod">Update</button>
+
+        <label class="text-grey pull-left full-width">DJ Question of the day:</label>
+        <div class="preview pull-left full-width text-grey mod"><?= $message_of_the_day ?></div>
+    </div>
+    <textarea id="log" name="log" readonly="readonly"></textarea>
     <script src="./assets/js/script.js"></script>
 
 </body>

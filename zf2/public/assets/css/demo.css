@@ -45,5 +45,45 @@ body {
 }
 
 .text-grey {
-    color: grey;
+    color: #999;
+}
+
+.pull-left {
+    float: left;
+}
+
+.full-width {
+    width: 100%;
+}
+
+#message_of_the_day {
+    position: absolute;
+    top: 120px;
+    left: 24px;
+    max-width: 320px; 
+    text-transform: uppercase;
+    font-style: italic;  
+}
+
+#message_of_the_day .message {
+    font-style: italic;    
+}
+
+#message_of_the_day .preview {
+    font-style: italic;    
+}
+
+#log {
+    margin: 0px;
+    height: 400px;
+    width: 434px;
+    background-color: rgba(105, 104, 104, 0.57);
+    color: rgb(255, 255, 255);
+    font-style: italic;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 14px;
+    padding: 11px;
+    position: fixed;
+    top: 217px;
 }

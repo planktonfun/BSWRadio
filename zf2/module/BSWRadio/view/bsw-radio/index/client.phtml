@@ -15,9 +15,11 @@
     <script type="text/javascript">
 
         // Configs
-        var server_name = 'ws://<?= $_SERVER[ 'SERVER_NAME']; ?>:9301';
+        var server_name = 'ws://' + location.hostname + ':9301';
         var pusher_config = { key: '<?= $app_key ?>',  channel: '<?= $app_channel ?>' };
         var dj_ip = '<?= $dj_ip; ?>';
+        var current_song = '<?= $current_song; ?>';
+        var message_of_the_day = '<?= $message_of_the_day; ?>';
         var myPlaylist = [];
 
         <?php 
@@ -47,7 +49,11 @@
         function WaitforClass() {
             if( $('.tracklist').length > 0 ){
                 $('.tracklist').hide();
-                $('.player-controls').hide();
+                $('.player-controls').hide();               
+                
+                setTimeout( function(){
+                    change_song( current_song );                                    
+                }, 2000 );
 
             } else {
                 setTimeout( WaitforClass, 10 );
@@ -62,7 +68,12 @@
 </head>
 <body>
 
-    <div id="title">BSW Web Radio</div>    
+    <div id="title">BSW Web Radio</div> 
+    <div id="message_of_the_day">
+        <label class="text-grey pull-left full-width">DJ Question of the day:</label>
+        <div class="preview pull-left full-width text-grey mod"><?= $message_of_the_day ?></div>
+    </div>
+    <textarea id="log" name="log" readonly="readonly"></textarea> 
     <script src="./assets/js/script.js"></script>
 
 </body>
