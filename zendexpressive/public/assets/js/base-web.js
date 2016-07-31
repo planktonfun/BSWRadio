@@ -8,6 +8,8 @@ var playWebTracks = function(filename) {
             });
 
 	playTrack(tracks.length-1);
+
+	$.get('/api/play/' + filename);
 }
 
 var pusher  = new Pusher(pusher_key);
