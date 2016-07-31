@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'music' => [
+        'public_path' => '/public/mix/',
+        'path'        => '/api/open/',
+        'temp_file'   => '/data/current_playing.json',
+        'index_file'  => '/data/index_file.json',
+        'extensions' => ['mp3', 'ogg', 'mp4'],
+    ]
+];

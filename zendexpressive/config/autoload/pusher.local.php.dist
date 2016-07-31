@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'pusher' => [
+        "app_id"  => "75978",
+        "key"     => "c7074daf2062830b98d0",
+        "secret"  => "ea27c6ff5e8972016a0f",
+        "channel" => "bspi_channel",
+        "event"   => "change_song",
+    ]
+];

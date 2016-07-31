@@ -1,0 +1,29 @@
+<script>
+    var musicFilesPath   = '<?php echo $this->musicFilesPath; ?>';
+    var currentlyPlaying = '<?php echo $this->currentlyPlaying; ?>';
+    var pusher_key       = '<?php echo $this->pusherKey;     ?>';
+    var pusher_channel   = '<?php echo $this->pusherChannel; ?>';
+    var pusher_event     = '<?php echo $this->pusherEvent;   ?>';
+</script>
+<div class="container">
+    <div class="column center">
+        <h1>HTML5 Audio Player</h1>
+    </div>
+    <div class="column add-bottom">
+        <div id="mainwrap">
+            <div id="nowPlay">
+                <span class="left" id="npAction">Paused...</span>
+                <span class="right" id="npTitle"></span>
+            </div>
+            <div id="audiowrap">
+                <div id="audio0">
+                    <audio preload id="audio1" controls="controls">Your browser does not support HTML5 Audio!</audio>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="column add-bottom center">
+        <p>Created by <a href="http://www.markhillard.com/">mh</a>. Music by <a href="http://www.mythium.net/">Mythium</a>.</p>
+        <p>Download: <a href="https://archive.org/download/mythium/mythium_vbr_mp3.zip">zip</a> / <a href="https://archive.org/download/mythium/mythium_archive.torrent">torrent</a></p>
+    </div>
+</div>

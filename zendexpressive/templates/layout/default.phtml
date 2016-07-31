@@ -1,0 +1,25 @@
+<?php
+$this->headLink()
+     ->prependStylesheet('/assets/css/base.css');
+
+$this->inlineScript()
+     ->prependFile('/assets/js/base-web.js')
+     ->prependFile('/assets/js/base.js')
+     ->prependFile('//js.pusher.com/2.2/pusher.min.js')
+     ->prependFile('/assets/js/jquery.min.js');
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <?php echo $this->headTitle('BSPI Radio')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink(); ?>
+</head>
+<body class="app">
+    <?php echo $this->content; ?>
+    <?php echo $this->inlineScript(); ?>
+</body>
+</html>
